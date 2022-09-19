@@ -29,13 +29,11 @@ if __name__ == '__main__':
             else:
                 newbs.append(i)
 
-        teamnum = len(teams)
-        xpplayerct = len(exp_players)
-        for i in teams:
-            for n in range(3):
-                for p in exp_players:
-                    i.append(p['name'])
-                    exp_players.remove(p)
+        while exp_players:
+            for t in teams:
+                print(t)
+                t.append(exp_players)
+                exp_players.remove(exp_players[0])
 
 newnie = clean_data(data)
 balance_teams(data)
