@@ -43,9 +43,13 @@ def menu():
                 team = Warriors
 
 
-print(sortin.data)
 team = Panthers
-sortin.balance_teams(data)
-print(teams)
-print(f"----{team} Stats-----")
-print('''Average height = ''' + sortin.whipheight(teams[1]))
+
+print(data)
+print(constants.PLAYERS)
+# print(sortin.clean_data(data))
+
+# sortin.balance_teams(data)
+# print(teams)
+# print(f"----{team} Stats-----")
+# print('''Average height = ''' + sortin.whipheight(teams[1]))

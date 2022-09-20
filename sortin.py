@@ -8,8 +8,8 @@ teams = Panthers, Bandits, Warriors
 
 
 def clean_data(itera):
-    newnie = []
-    for i in itera.copy():
+    newnie = itera.copy()
+    for i in newnie:
         if i['experience'] == 'YES':
             i['experience'] = True
         if i['experience'] == 'NO':
@@ -18,7 +18,7 @@ def clean_data(itera):
         i['height'] = i['height'].split()
         i['height'] = int(i['height'][0])
         i['guardians'] = i['guardians'].split(' and ')
-        newnie.append(i)
+
     return newnie
 
 
@@ -51,8 +51,10 @@ def whipheight(team):
     return round(sum(height_pool)/len(height_pool))
 
 if __name__ == '__main__':
+    print(constants.PLAYERS)
     data = constants.PLAYERS.copy()
+    print(data)
     newnie = clean_data(data)
     # balance_teams(data)
-    print(data)
     print(newnie)
+    print(data)
