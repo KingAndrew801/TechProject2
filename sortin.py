@@ -19,7 +19,7 @@ def clean_data(itera):
         i['height'] = int(i['height'][0])
         i['guardians'] = i['guardians'].split(' and ')
         newnie.append(i)
-        return newnie
+    return newnie
 
 
 
