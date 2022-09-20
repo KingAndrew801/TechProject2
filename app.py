@@ -42,11 +42,10 @@ def menu():
             elif team.lower() == 'c':
                 team = Warriors
 
-print(constants.PLAYERS)
-print(sortin.clean_data(constants.PLAYERS.copy()))
-print(data)
-# team = Panthers
-# sortin.balance_teams(data)
-# print(teams)
-# print(f"----{team} Stats-----")
-# print('''Average height = ''' + sortin.whipheight(teams[1]))
+
+print(sortin.data)
+team = Panthers
+sortin.balance_teams(data)
+print(teams)
+print(f"----{team} Stats-----")
+print('''Average height = ''' + sortin.whipheight(teams[1]))
