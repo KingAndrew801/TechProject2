@@ -1,10 +1,12 @@
 import sortin
 import constants
 import copy
+from varname import nameof
 
 
 def menu():
     data = sortin.clean_data(copy.deepcopy(constants.PLAYERS))
+    trying = True
     runit = True
     print('---------Basketball Team Stats tool---------')
     print('\n')
@@ -12,33 +14,52 @@ def menu():
     while runit:
         print('---------MENU---------')
         choice = None
-        choice = input('''
+        while trying:
+            try:
+                choice = input('''
 What would you like to do?
 A. Display Stats
 B. Quit
         
 Submit your choice:   ''')
-        if choice.lower() == 'b':
-            runit = False
-            break
+                if choice.lower() == 'b':
+                    runit = False
+                    trying = False
+                    break
 
-        elif choice.lower() == 'a':
-            print('''-----Choose your team-----
-A. Panthers
-B. Bandits 
-C. Warriors
+                elif choice.lower() == 'a':
+                    trying = False
+                    print(f'''-----Choose your team-----
+A. {constants.TEAMS[0.__name__]}
+B. {nameof(constants.TEAMS[1])} 
+C. {nameof(constants.TEAMS[2])}
             ''')
-            team = input('Make you selection:   ')
+                else:
+                    raise ValueError('You have to select either A or B')
+            except ValueError as err:
+                print(f'{err}')
 
-            if team.lower() == 'a':
-                teamnum = 0
-                team = "Panthers"
-            elif team.lower() == 'b':
-                teamnum = 1
-                team = "Bandits"
-            elif team.lower() == 'c':
-                teamnum = 2
-                team = "Warriors"
+        trying = True
+        while trying:
+            try:
+                team = input('Select your team:   ')
+
+                if team.lower() == 'a':
+                    teamnum = 0
+                    team = constants.TEAMS[0]
+                    trying = False
+                elif team.lower() == 'b':
+                    teamnum = 1
+                    team = constants.TEAMS[1]
+                    trying = False
+                elif team.lower() == 'c':
+                    teamnum = 2
+                    team = constants.Teams[2]
+                    trying = False
+                else:
+                    raise ValueError("Thats not a valid selection. Select a, b, or c.")
+            except ValueError as err:
+                print(f"{err}")
 
         teams = sortin.balance_teams(data)
 
@@ -56,12 +77,21 @@ Call in case of emergency:
 {sortin.guardlist(teams[teamnum])}
 ''')
 
-        goodtogo = input('Do you want to keep this team? (Y/N)  ').lower()
-        if goodtogo == 'y':
-            print("Then Let's Get it on!!!")
-            runit = False
-        else:
-            print('That sucks you have to start over now....\n')
+        trying = True
+        while trying:
+            try:
+                goodtogo = input('Do you want to keep this team? (Y/N)  ').lower()
+                if goodtogo == 'y':
+                    print("Then Let's Get it on!!!")
+                    runit = False
+                    trying = False
+                elif goodtogo == 'n':
+                    print('That sucks you have to start over now....\n')
+                    trying = False
+                else:
+                    raise ValueError('You have to select either Y or N')
+            except ValueError as err:
+                print(f'{err}')
 
 if __name__ == '__main__':
     menu()
