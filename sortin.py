@@ -1,15 +1,10 @@
 import constants
-
-
-Panthers = []
-Bandits = []
-Warriors = []
-teams = Panthers, Bandits, Warriors
+import copy
 
 
 def clean_data(itera):
-    newnie = itera.copy()
-    for i in newnie:
+    newnie = []
+    for i in itera.copy():
         if i['experience'] == 'YES':
             i['experience'] = True
         if i['experience'] == 'NO':
@@ -18,12 +13,16 @@ def clean_data(itera):
         i['height'] = i['height'].split()
         i['height'] = int(i['height'][0])
         i['guardians'] = i['guardians'].split(' and ')
-
+        newnie.append(i)
     return newnie
 
 
 
 def balance_teams(itera):
+    Panthers = []
+    Bandits = []
+    Warriors = []
+    teams = Panthers, Bandits, Warriors
     exp_players = []
     newbs = []
 
@@ -42,19 +41,29 @@ def balance_teams(itera):
         for t in teams:
             t.append(newbs[0])
             newbs.remove(newbs[0])
+    return teams
+
+def guardlist(team):
+    glist = []
+    for i in team:
+        for g in i['guardians']:
+            glist.append(str(g))
+    return ', '.join(glist)
+
+def plist(team):
+    plist = []
+    for i in team:
+        plist.append(str(i['name']))
+    return ', '.join(plist)
 
 
 def whipheight(team):
     height_pool = []
     for i in team:
         height_pool.append(i['height'])
-    return round(sum(height_pool)/len(height_pool))
+    return str(round(sum(height_pool)/len(height_pool), 2)) + ' inches'
 
 if __name__ == '__main__':
-    print(constants.PLAYERS)
-    data = constants.PLAYERS.copy()
-    print(data)
+    data = copy.deepcopy(constants.PLAYERS)
     newnie = clean_data(data)
-    # balance_teams(data)
-    print(newnie)
-    print(data)
+
