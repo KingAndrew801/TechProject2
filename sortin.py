@@ -16,30 +16,32 @@ def clean_data(itera):
         newnie.append(i)
     return newnie
 
+def teamclean(itera):
+    teamdick = {}
+    for i in itera:
+        n = {i : []}
+        teamdick.update(n)
+    return teamdick
 
 
-def balance_teams(itera):
-    Panthers = []
-    Bandits = []
-    Warriors = []
-    teams = Panthers, Bandits, Warriors
+
+def balance_teams(itera, itera2):
     exp_players = []
-    newbs = []
-
+    newbs =[]
+    teams = teamclean(itera2)
     for i in itera:
         if i['experience'] == True:
             exp_players.append(i)
         else:
             newbs.append(i)
-
     while exp_players:
-        for t in teams:
-            t.append(exp_players[0])
+        for key, value in teams.items():
+            value.append(exp_players[0])
             exp_players.remove(exp_players[0])
 
     while newbs:
-        for t in teams:
-            t.append(newbs[0])
+        for key, value in teams.items():
+            value.append(newbs[0])
             newbs.remove(newbs[0])
     return teams
 
@@ -66,4 +68,8 @@ def whipheight(team):
 if __name__ == '__main__':
     data = copy.deepcopy(constants.PLAYERS)
     newnie = clean_data(data)
+    teams = balance_teams(newnie, constants.TEAMS)
+    print(teams)
 
+    for i in teams:
+        print(i)
